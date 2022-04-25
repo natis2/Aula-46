@@ -27,17 +27,17 @@ hide(){
 }
 
 Start(){
-    this.button.mousePressed(
-    ()=>{
-    this.input.hide()
-    this.button.hide()
-    var n=`Olá ${this.input.value()}, espere o outro jogador entrar.`
-    this.frase.html(n)
+    this.button.mousePressed(()=>{
+        this.input.hide()
+        this.button.hide()
+        var n=`Olá ${this.input.value()}, espere o outro jogador entrar.`
+        this.frase.html(n)
 
-    playerCount+=1
+     playerCount+=1
       player.name = this.input.value();
       player.index = playerCount;
       player.addPlayer();
+      player.getDistance();
       player.updateCount(playerCount);
     }
     )

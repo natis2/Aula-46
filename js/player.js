@@ -20,16 +20,44 @@ class Player{
           positionY: this.positionY,
           
         });
-      }
-      updateCount(count) {
-        database.ref("/").update({
-          playerCount: count
-        });
-      }
-      getCount() {
+    }
+
+    getCount() {
         var playerCountRef = database.ref("playerCount");
         playerCountRef.on("value", data => {
           playerCount = data.val();
         });
-      }
+    }
+
+    updateCount(count) {
+        database.ref("/").update({
+          playerCount: count
+        });
+    }
+
+    getDistance() { //pega no banco de dados! 
+      var playerDistanceRef = database.ref("players/player" + this.index);
+      playerDistanceRef.on("value", data => {
+        var data = data.val();
+        this.positionX = data.positionX;
+        this.positionY = data.positionY;
+      });
+    }
+
+    update() { 
+      var playerIndex = "players/player" + this.index;
+      database.ref(playerIndex).update({
+        positionX: this.positionX,
+        positionY: this.positionY,
+      });
+    }
+    
+    static getPlayersInfo() {
+      var playerInfoRef = database.ref("players");
+      playerInfoRef.on("value", data => {
+        allPlayers = data.val();
+      });
+     
+    }
+     
 }
