@@ -1,18 +1,20 @@
 class Game{
- constructor()   {
-
+constructor(){
  }
+
  getState() {
   var gameStateRef = database.ref("gameState");
   gameStateRef.on("value", function(data) {
     gameState = data.val();
   });
 }
+
 update(state) {
   database.ref("/").update({
     gameState: state
   });
 }
+
  start(){
    form=new Form ()
    form.display()
@@ -48,10 +50,23 @@ ocultar(){
 }
 
 play(){
-  this.ocultar()
+  this.ocultar();
+  Player.getPlayersInfo(); 
+  
   if(playerCount===2){
     drawSprites()
     rect(width/2,height/2,100,100)
+
+    var index = 0
+    for (var plr in allPlayers) { 
+      var x = allPlayers[plr].positionX;
+      var y = height - allPlayers[plr].positionY;
+    
+      playerss[index].position.x = x;
+      playerss[index].position.y = y;
+      index ++;
+     }
+
   }
 }
 }

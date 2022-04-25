@@ -3,7 +3,7 @@ var game;
 var form;
 var database;
 var gameState;
-var playerCount;
+var playerCount, allPlayers;
 var player, playerss = [];
 var pl1, p1_img, p1_run;
 var pl2, p2_img, p2_run;
