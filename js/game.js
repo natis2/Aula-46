@@ -1,6 +1,7 @@
 class Game{
 constructor(){
- }
+ this.poder = false
+}
 
  getState() {
   var gameStateRef = database.ref("gameState");
@@ -26,6 +27,7 @@ update(state) {
    pl1 = createSprite(width / 2 - 200, height - 260);
    pl1.addAnimation("p1", p1_img);
    pl1.addAnimation("p1_running", p1_run);
+   pl1.addAnimation("poder",poder)
    pl1.scale = 3;
 
    setTimeout(() => {
@@ -52,21 +54,38 @@ ocultar(){
 play(){
   this.ocultar();
   Player.getPlayersInfo(); 
-  
+  console.log(playerCount)
   if(playerCount===2){
     drawSprites()
-    rect(width/2,height/2,100,100)
-
+this.keyBoard()
     var index = 0
     for (var plr in allPlayers) { 
       var x = allPlayers[plr].positionX;
       var y = height - allPlayers[plr].positionY;
-    
+  
       playerss[index].position.x = x;
       playerss[index].position.y = y;
       index ++;
+      if(index=== player.index) {
+        if(this.poder){
+      playerss[index].changeAnimation('poder', poder)
+        }
+      }
      }
 
   }
+}
+keyBoard(){
+  if(keyIsDown(LEFT_ARROW)){
+    player.positionX -=5
+    player.update()
+  }
+if (keyIsDown(RIGHT_ARROW)){
+  player.positionX +=5
+  player.update()
+}
+if (keyIsDown(UP_ARROW)){
+  this.poder = true;
+}
 }
 }

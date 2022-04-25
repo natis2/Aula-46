@@ -9,9 +9,12 @@ class Player{
         var playerIndex = "players/player" + this.index;
     
         if (this.index === 1) {
-          this.positionX = width / 2 - 100;
+          this.positionX = width / 2 - 200;
+          this.positionY = height-360
         } else {
-          this.positionX = width / 2 + 100;
+          this.positionX = width / 2 + 200;
+
+          this.positionY = height - 360
         }
     
         database.ref(playerIndex).set({
