@@ -78,8 +78,10 @@ play(){
       if(index=== player.index) {
         if(this.poder){
            playerss[index-1].changeAnimation('poder')
+
            setTimeout(() => {
             playerss[index-1].changeAnimation('run')
+            this.poder = false
            }, 2000);
         }
 
