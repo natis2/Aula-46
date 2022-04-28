@@ -86,8 +86,29 @@ play(){
         }
 
         // ATIRAR! 
-        
+        if(this.shot){
+        var shot = createSprite(player.positionX,player.positionY,20,20) 
+        if(index===1){
+        gshot1.add(shot)
+        shot.velocityX = 5
+        shot.shapeColor = "rgb(6, 45, 200)"
+       shot.addImage(shot1img)
+        }else if (index===2){
+        gshot2.add(shot)
+        shot.velocityX = -5
+        shot.shapeColor = "rgb(16, 231, 188)"
+       shot.addImage(shot2img)
+        }
+        this.shot = false
       }
+     if(pl1.collide(gshot2)){
+       player.life -=15
+       player.update()
+     }else if (pl2.collide(gshot1)) {
+       player.life -=15
+       player.update()
+     }
+    }
   
     }
   }
