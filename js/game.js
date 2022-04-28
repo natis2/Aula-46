@@ -1,9 +1,12 @@
 class Game{
+
 constructor(){
- this.poder = false
+ this.poder = false;
+ this.shot = false;
+ this.resetButton = createButton("Reset");  // botão de reiniciar
 }
 
- getState() {
+getState() {
   var gameStateRef = database.ref("gameState");
   gameStateRef.on("value", function(data) {
     gameState = data.val();
@@ -16,7 +19,7 @@ update(state) {
   });
 }
 
- start(){
+start(){
    form=new Form ()
    form.display()
 
@@ -24,40 +27,44 @@ update(state) {
    playerCount = player.getCount();
 
    // criando sprites dos players
-   pl1 = createSprite(width / 2 - 200, height - 260);
+   pl1 = createSprite(width / 2 - 200, height - 260,20,100);
    pl1.addAnimation("p1", p1_img);
-   pl1.addAnimation("p1_running", p1_run);
-   pl1.addAnimation("poder",poder)
+   pl1.addAnimation("run", p1_run);
+   pl1.addAnimation("poder",poder1)
    pl1.scale = 3;
 
-   setTimeout(() => {
-     pl1.changeAnimation("p1_running", p1_run);
-   }, 5000);
-
-
-   pl2 = createSprite(width / 2 + 200, height - 245);
+   pl2 = createSprite(width / 2 + 200, height - 245,20,100);
    pl2.addAnimation("p2", p2_img);
-   pl2.addAnimation("p2_run", p2_run);
+   pl2.addAnimation("run", p2_run);
+   pl2.addAnimation("poder",poder2)
    pl2.scale = 2.9;
 
    setTimeout(() => {
-    pl2.changeAnimation("p2_run", p2_run);
+    pl2.changeAnimation("run", p2_run);
+    pl1.changeAnimation("run", p1_run);
   }, 5000);
 
    playerss = [pl1, pl2];
- }
+
+   gshot1 = new Group ();
+   gshot2 = new Group ();
+}
  
 ocultar(){
   form.hide()
+  this.resetButton.class("resetButton");
+  this.resetButton.position(width / 2 + 430, 10);
 }
 
 play(){
   this.ocultar();
   Player.getPlayersInfo(); 
-  console.log(playerCount)
+  this.handleResetButton()
   if(playerCount===2){
     drawSprites()
-this.keyBoard()
+    this.keyBoard()
+  
+
     var index = 0
     for (var plr in allPlayers) { 
       var x = allPlayers[plr].positionX;
@@ -66,26 +73,82 @@ this.keyBoard()
       playerss[index].position.x = x;
       playerss[index].position.y = y;
       index ++;
+      this.showLife(index)
+
       if(index=== player.index) {
         if(this.poder){
-      playerss[index].changeAnimation('poder', poder)
+           playerss[index-1].changeAnimation('poder')
+           setTimeout(() => {
+            playerss[index-1].changeAnimation('run')
+           }, 2000);
         }
-      }
-     }
 
+        // ATIRAR! 
+        
+      }
+  
+    }
   }
 }
+
 keyBoard(){
   if(keyIsDown(LEFT_ARROW)){
     player.positionX -=5
     player.update()
   }
-if (keyIsDown(RIGHT_ARROW)){
-  player.positionX +=5
-  player.update()
+  if (keyIsDown(RIGHT_ARROW)){
+    player.positionX +=5
+    player.update()
+  }
+  if (keyIsDown(DOWN_ARROW)){
+    player.positionY -=5
+    player.update()
+  }
+  if (keyDown("space")){
+    player.positionY +=5
+    player.update()
+  }
+  if (keyIsDown(UP_ARROW)){
+    this.poder = true;
+    this.shot = true;
+  }
 }
-if (keyIsDown(UP_ARROW)){
-  this.poder = true;
+
+handleResetButton() {
+  this.resetButton.mousePressed(() => {
+    database.ref("/").set({
+      playerCount: 0,
+      gameState: 0,
+      players: {}
+    });
+    window.location.reload();
+  });
 }
+
+showLife(index) {
+  if (index === 1){
+    push();
+    //image(lifeImage, width / 2 - 130, height - player.positionY - 400, 20, 20);
+    fill("white");
+    rect(width / 2 - 400,  100, 300, 20);
+    fill("rgb(6, 45, 200)");
+    rect(width / 2 - 400, 100, player.life, 20);
+    noStroke();
+    pop();
+  }else{
+    push();
+    //image(lifeImage, width / 2 - 130, height - player.positionY - 400, 20, 20);
+    fill("white");
+    rect(width / 2+200, 100, 300, 20);
+    fill("rgb(16, 231, 188)");
+    rect(width / 2 +200, 100, player.life, 20);
+    noStroke();
+    pop();
+  }
+ 
 }
+
+
 }
+
+

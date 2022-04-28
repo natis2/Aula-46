@@ -5,7 +5,8 @@ html, body {
 canvas {
   display: block;
 }
-.customInput { width:200px; height:30px;
+.customInput { 
+  width:200px; height:30px;
    border: 3px solid white;
     border-radius: 5px;
      padding: 5px;
@@ -13,9 +14,11 @@ canvas {
        font-size: 20px; outline:none;
         color:white;
          font-family: vollkorn;
-          text-align: center; }
+          text-align: center;
+ }
 
-.customButton { width:180px; height:50px;
+.customButton { 
+  width:180px; height:50px;
    background-color: #ffffff;
     border: 3px solid white;
      color: rgb(255, 0, 170);
@@ -31,8 +34,29 @@ canvas {
                cursor: pointer;
                 -webkit-transition-duration: 0.4s;
                  /* Safari */ transition-duration: 0.4s;
-                  outline: none; }
-.greeting{ font-size: 40px;
+                  outline: none; 
+}
+
+.greeting{
+  font-size: 40px;
  color: white;
 font-family: vollkorn;
-text-align: center; }
+text-align: center; 
+}
+
+.resetButton {
+  width:80px;
+  height:80px;
+  background-color: blue;
+  /* background-image: url('./assets/reset.png'); */
+  background-size: cover;
+  border-radius: 40px;
+  display: inline-block;
+  cursor: pointer;
+  /* -webkit-transition-duration: 0.4s; /* Safari */
+  /*transition-duration: 0.4s; */
+  outline: none;
+  color: blanchedalmond;
+  border:3px solid rgb(24, 165, 208);
+  
+}
