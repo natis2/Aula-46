@@ -4,6 +4,7 @@ class Player{
         this.index=null
         this.positionX=0
         this.positionY=0
+        this.life = 300
     }
     addPlayer() {
         var playerIndex = "players/player" + this.index;
@@ -21,6 +22,7 @@ class Player{
           name: this.name,
           positionX: this.positionX,
           positionY: this.positionY,
+          life: this.life
           
         });
     }
@@ -52,6 +54,7 @@ class Player{
       database.ref(playerIndex).update({
         positionX: this.positionX,
         positionY: this.positionY,
+        life: this.life
       });
     }
     

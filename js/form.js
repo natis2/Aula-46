@@ -10,8 +10,8 @@ this.style()
 this.Start()
 }
 position(){
-    this.input.position(width/2,height/2)
-    this.button.position(width/2,height/2+100)
+    this.input.position(width/2-100,height/2)
+    this.button.position(width/2-85,height/2+100)
     this.frase.position(width/2,height/2)
 }
 style(){
